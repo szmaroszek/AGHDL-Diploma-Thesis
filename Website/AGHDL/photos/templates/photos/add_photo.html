@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{%block content %}
+
+<style>
+
+#blah{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#id_title{
+  height: 40px;
+}
+
+#id_description{
+  height: 100px;
+}
+
+#id_tags{
+  height: 40px;
+
+}
+
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <img id="blah" src="http://placehold.it/180" alt="your image" width=500px/><br>
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+<script>
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      $('#blah').attr('src', e.target.result);
+    }
+    
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#id_img").change(function() {
+  readURL(this);
+});
+</script>
+
+{% endblock %}

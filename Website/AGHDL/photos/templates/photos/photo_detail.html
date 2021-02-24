@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{%block content %}
+<style>
+    body {
+        background-color: #EFEFEF;
+    }
+    #theImage {
+        width: 85%;
+        height: auto;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 170px;
+    }
+    #container {
+        width: 100%;
+        margin: auto;
+    }
+    #text {
+        width: 100%;
+        padding-left: 565px;
+    }
+
+</style>
+    <div id="container">
+    <h4>{{ photo.title }} | {{ photo.owner }}</h4>
+    <br><img id="theImage" src="/media/{{photo.img}}"></br>
+
+{% if not user in photo.likes.all %}
+    <form action="{% url 'photos:like_photo' photo.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit", name="photo_id", value="{{ photo.id }}", class="btn btn-primaty btn-sm"><img src="{% static 'icons/heart.png' %}"></button>
+        <h5 id="text">{{photo.likes.count}}</h5>
+    </form>
+{% else %}
+    <form action="{% url 'photos:unlike_photo' photo.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit", name="photo_id", value="{{ photo.id }}", class="btn btn-primaty btn-sm"><img src="{% static 'icons/heart_liked.png' %}"></button>
+        <h5 id="text">{{photo.likes.count}}</h5>
+    </form>
+{% endif %}
+
+
+    <h4>Description:</h4>
+    <h5>{{ photo.description }}</h5>
+    <h4>TAGS:</h4>
+    <h5>{{photo.tags}}</h5>
+
+{% endblock %}

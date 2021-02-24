@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{%block content %}
+
+<ul>
+<div class="row">
+{% for photo in object_list %}
+    {% if not "violation" in photo.tags_auto %}
+        <div class="column">
+            <br><a href="{% url 'photos:photo_detail' photo.pk %}"><img src="media/{{photo.img}}"></br>
+            <h4 id="theImage">{{ photo.title }} | {{ photo.owner }}</h4>
+        </div>
+    {% elif "violation" in photo.tags_auto and user.id == photo.owner_id %}
+        <div class="column">
+            <br><a href="{% url 'photos:photo_detail' photo.pk %}"><img src="media/{{photo.img}}"></br>
+            <h4 id="theImage">{{ photo.title }} | {{ photo.owner }}</h4>
+        </div>
+    {% endif %}
+{% endfor %}
+</div>
+</ul>
+
+{% endblock %}

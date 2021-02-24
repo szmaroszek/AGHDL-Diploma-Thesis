@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{%block content %}
+
+<ul>
+<div class="row">
+{% if user.is_authenticated %}
+    {% for photo in object_list %}
+        {% autoescape off %}
+        {% if user.id == photo.owner_id %}
+            <div class="column">
+                <h4> {{ photo.title }}</h4>
+                <a href="{% url 'photos:photo_detail' photo.pk %}"><img id="theImage" src="/media/{{ photo.img }}"></br>
+            </div>
+        {% endif %}
+        {% endautoescape %}
+
+    {% endfor %}
+{% endif %}
+</div>
+</ul>
+
+{% endblock %}

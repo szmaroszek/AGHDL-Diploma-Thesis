@@ -1,0 +1,51 @@
+{%extends "base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #EFEFEF;
+    }
+    #theImage {
+        width: 85%;
+        height: auto;
+        max-height: 600px;
+        padding-top: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+        padding-left: 170px;
+    }
+    #container {
+        width: 100%;
+        margin: auto;
+    }
+    #text {
+        width: 100%;
+        padding-left: 200px;
+    }
+    .center {
+        margin: 0;
+        position: absolute;
+        top: 90%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+</style>
+<div class="container">
+
+    <body>
+        <h1>Livestream</h1>
+        <br><img id="theImage" src="{% url 'stream:stream_live' %}"></br>
+    </body>
+
+<form action="{% url 'stream:stop_streaming' %}" method="POST">
+    {% csrf_token %}    
+    <div class="center">
+        <button type="submit" class="btn btn-primary">Stop streaming</button>
+    </div>
+</div>
+
+{% endblock %}
